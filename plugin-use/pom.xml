@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>maven-plugin</artifactId>
+        <groupId>com.univ</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>plugin-use</artifactId>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.univ</groupId>
+                <artifactId>plugin-module</artifactId>
+                <version>${project.version}</version>
+                <!--executions用在给那些绑定了生命周期阶段的goal上-->
+                <executions>
+                    <!--注，如果是单独执行此目标而不是通过生命周期阶段compile触发的，则仍然是使用外围的configuration-->
+                    <execution>
+                        <id>xxx</id>
+                        <goals>
+                            <goal>second</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <!--当compile被执行时，会触发这里的goal:second,且使用这里的configuration-->
+                        <configuration>
+                            <name>name_haha</name>
+                            <second>second</second>
+                        </configuration>
+                    </execution>
+                </executions>
+                <!--配置给没绑定任何生命周期阶段的goal-->
+                <configuration>
+                    <name>name_yoyo</name>
+                    <first>first</first>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
